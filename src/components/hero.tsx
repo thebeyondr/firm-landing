@@ -1,6 +1,7 @@
 import { cubicBezier, motion, useReducedMotion } from "motion/react";
 import { Banner } from "./banner";
 import { BrandStar, Logotype } from "./brand-assets";
+import { StatCard } from "./stat-card";
 
 const ASSETS = {
 	BANNER_STAR: "https://www.figma.com/api/mcp/asset/c9784cf6-6bc5-4434-8065-6bc0a0f92a27",
@@ -9,23 +10,27 @@ const ASSETS = {
 	DISCORD: "https://www.figma.com/api/mcp/asset/3b513d49-6277-488d-9091-813581b0834c",
 	GITHUB: "https://www.figma.com/api/mcp/asset/21603fc3-7f12-4426-ac9e-d9413b28fa52",
 	TWITTER: "https://www.figma.com/api/mcp/asset/aa62c3a3-522e-4d22-801a-ac4f17c2a20c",
-	STAT_BG_1: "https://www.figma.com/api/mcp/asset/29cd6101-5f2f-4bc3-a019-e98455827a81",
-	STAT_BG_2: "https://www.figma.com/api/mcp/asset/a7ec4d54-7e23-4e06-84cc-9d2a2d0e48aa",
-	STAT_BG_3: "https://www.figma.com/api/mcp/asset/595eabec-6eb1-4770-9dff-0282574245b8",
 };
 
 interface BannerDisplayProps {
 	bannerText?: string;
 	bannerLink?: { text: string; href: string };
 	bannerExpiry?: string | number;
+	stats?: {
+		value: string;
+		label: string;
+		footer?: string;
+	}[];
 }
 
 export function Hero({
 	bannerText = "yUSF is live on Status",
 	bannerLink = { text: "Get FIRM", href: "#" },
 	bannerExpiry,
+	stats = [], // Default to empty array to show pending state
 }: BannerDisplayProps) {
 	const shouldReduceMotion = useReducedMotion();
+	const hasStats = stats && stats.length > 0;
 
 	return (
 		<div className="relative flex min-h-screen flex-col bg-[#151821] text-white overflow-hidden isolate">
@@ -56,7 +61,7 @@ export function Hero({
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
 									animate={{ y: 0, opacity: 1 }}
 									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-									className="font-heading text-5xl font-semibold leading-[0.95] tracking-tight md:text-[64px] text-[#e1e2e5]"
+									className="font-heading text-5xl font-semibold leading-[1.05] tracking-tight md:text-[64px] text-[#e1e2e5]"
 								>
 									Your money <br /> should be <span className="text-brand-yellow uppercase">firm</span>
 								</motion.h1>
@@ -163,52 +168,74 @@ export function Hero({
 							</div>
 						</div>
 					</div>
+				</div>
 
-					{/* Stats Section */}
-					<div className="mt-32 mb-32 grid grid-cols-1 md:grid-cols-3 gap-8">
-						<StatCard
-							value="X.XX% APR"
-							label="Avg. Safety Pool reward rate*"
-							footer="*Based on recent borrower activity. Rates are variable and not guaranteed."
-							bgImg={ASSETS.STAT_BG_1}
-						/>
-						<StatCard
-							value="$X.XXM"
-							label="Peak FIRM TVL"
-							bgImg={ASSETS.STAT_BG_2}
-						/>
-						<StatCard
-							value="XXX vaults"
-							label="Open positions on Status"
-							bgImg={ASSETS.STAT_BG_3}
-						/>
+				{/* Stats Section */}
+				<div className="mt-16 md:mt-32 mb-24 md:mb-48 w-full xl:max-w-[1440px] xl:mx-auto px-6 md:px-12 xl:px-0">
+					<div className={`grid gap-4 md:gap-4 items-stretch ${hasStats
+						? "grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto] lg:grid-cols-[auto_1fr_1fr_1fr_auto]"
+						: "grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto]"
+						}`}>
+						{/* Left Decorative Yellow Frame */}
+						<motion.div
+							whileHover={hasStats ? { scale: 1.02, backgroundColor: "#FFB800" } : {}}
+							className="hidden md:block w-12 md:w-6 xl:w-16 bg-brand-yellow self-stretch relative overflow-hidden group/frame"
+							aria-hidden="true"
+						>
+							<div className="absolute inset-0 bg-white/20 opacity-0 group-hover/frame:opacity-100 transition-opacity duration-300" />
+						</motion.div>
+						<div className="md:hidden flex items-end gap-3 mb-2" aria-hidden="true">
+							<div className="w-12 h-12 bg-brand-yellow" />
+							<div className="flex-1 h-px bg-white/10 mb-1" />
+						</div>
+
+						{hasStats ? (
+							stats.map((stat, i) => (
+								<StatCard
+									key={i}
+									value={stat.value}
+									label={stat.label}
+									footer={stat.footer}
+									icon={i === 0 ? BrandStar : undefined}
+								/>
+							))
+						) : (
+							<div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div className="relative group bg-[#1d2029]/40 backdrop-blur-[2px] border border-white/5 p-4 md:p-6 flex flex-col min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate">
+									<div className="relative z-10 flex flex-col gap-3">
+										<p className="text-base md:text-lg lg:text-xl text-[#e7e9ef]/80 font-sans font-medium tracking-tight leading-tight max-w-[240px]">
+											We need some time to gather stats here. <br />
+											Until then, stay <span className="text-brand-yellow uppercase font-bold">firm</span>.
+										</p>
+									</div>
+									<div className="absolute inset-0 flex items-center justify-center opacity-[0.03] -z-10">
+										<BrandStar className="size-32 md:size-56 lg:size-52 -rotate-12 -mt-12" />
+									</div>
+								</div>
+								<div className="relative group bg-[#1d2029]/20 backdrop-blur-[1px] border border-white/5 p-4 md:p-6 flex flex-col min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate hidden md:flex opacity-50">
+									<div className="relative z-10 flex flex-col gap-1 md:gap-2 opacity-20">
+										<div className="w-24 h-8 bg-white/10 rounded-sm" />
+										<div className="w-32 h-4 bg-white/10 rounded-sm" />
+									</div>
+								</div>
+							</div>
+						)}
+
+						{/* Right Decorative Yellow Frame */}
+						<motion.div
+							whileHover={hasStats ? { scale: 1.01, backgroundColor: "#FFB800" } : {}}
+							className="hidden md:block w-48 md:w-4 lg:w-6 xl:w-52 bg-brand-yellow self-stretch relative overflow-hidden group/frame"
+							aria-hidden="true"
+						>
+							<div className="absolute inset-0 bg-white/20 opacity-0 group-hover/frame:opacity-100 transition-opacity duration-300" />
+						</motion.div>
+						<div className="md:hidden flex items-start gap-3 mt-2" aria-hidden="true">
+							<div className="flex-1 h-px bg-white/10 mt-1" />
+							<div className="w-24 h-12 bg-brand-yellow" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	);
-}
-
-function StatCard({ value, label, footer, bgImg }: { value: string; label: string; footer?: string; bgImg: string }) {
-	return (
-		<div className="relative group overflow-hidden bg-transparent p-2 lg:p-4 items-start justify-start flex flex-col min-h-[223px]">
-			{/* Union Background */}
-			<img src={bgImg} alt="" className="absolute inset-0 size-full object-contain group-hover:scale-105 transition-transform duration-500" />
-
-			<div className="relative z-10 flex flex-col gap-2 ml-6">
-				<p className="font-heading text-3xl lg:text-5xl font-light tracking-[-0.96px] text-[#f0f1f3] md:text-[48px]">
-					{value}
-				</p>
-				<p className="font-sans text-lg font-normal text-[#c3cce9] tracking-[-0.36px] md:text-[18px]">
-					{label}
-				</p>
-			</div>
-
-			{footer && (
-				<p className="absolute bottom-6 left-12 right-12 text-[13px] text-[#e7e9ef]/80 leading-tight font-sans tracking-wide">
-					{footer}
-				</p>
-			)}
 		</div>
 	);
 }

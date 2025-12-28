@@ -86,6 +86,15 @@
 	--radius-4xl: calc(var(--radius) + 16px);
 
 	--animate-spin-slow: spin 12s linear infinite;
+	--breakpoint-xs: 375px;
+}
+
+@utility stat-card-clip {
+	clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 80% 80%, 80% 100%, 0% 100%);
+
+	@media (min-width: 768px) {
+		clip-path: polygon(0% 0%, 100% 0%, 100% 65%, 65% 65%, 65% 100%, 0% 100%);
+	}
 }
 
 @layer base {
