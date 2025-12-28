@@ -201,10 +201,10 @@ export function Hero({
 							))
 						) : (
 							<div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-								<div className="relative group bg-[#1d2029]/40 backdrop-blur-[2px] border border-white/5 p-4 md:p-6 flex flex-col min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate">
+								<div className="relative group bg-[#1d2029]/40 backdrop-blur-[2px] border border-white/5 p-4 md:p-6 xl:pb-8 flex flex-col xl:justify-end min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate">
 									<div className="relative z-10 flex flex-col gap-3">
-										<p className="text-base md:text-lg lg:text-xl text-[#e7e9ef]/80 font-sans font-medium tracking-tight leading-tight max-w-[240px]">
-											We need some time to gather stats here. <br />
+										<p className="text-base md:text-lg lg:text-xl xl:text-lg text-[#e7e9ef]/80 font-sans font-medium tracking-tight leading-tight max-w-[240px] xl:max-w-[280px]">
+											Thanks for being early. We need some time to gather stats here. <br />
 											Until then, stay <span className="text-brand-yellow uppercase font-bold">firm</span>.
 										</p>
 									</div>
@@ -212,7 +212,7 @@ export function Hero({
 										<BrandStar className="size-32 md:size-56 lg:size-52 -rotate-12 -mt-12" />
 									</div>
 								</div>
-								<div className="relative group bg-[#1d2029]/20 backdrop-blur-[1px] border border-white/5 p-4 md:p-6 flex flex-col min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate hidden md:flex opacity-50">
+								<div className="relative group bg-[#1d2029]/20 backdrop-blur-[1px] border border-white/5 p-4 md:p-6 flex-col min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate hidden md:flex opacity-50">
 									<div className="relative z-10 flex flex-col gap-1 md:gap-2 opacity-20">
 										<div className="w-24 h-8 bg-white/10 rounded-sm" />
 										<div className="w-32 h-4 bg-white/10 rounded-sm" />
