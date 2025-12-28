@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { cubicBezier, motion, useReducedMotion } from "motion/react";
+import { Banner } from "./banner";
+import { BrandStar, Logotype } from "./brand-assets";
 
 const ASSETS = {
 	BANNER_STAR: "https://www.figma.com/api/mcp/asset/c9784cf6-6bc5-4434-8065-6bc0a0f92a27",
@@ -13,36 +14,33 @@ const ASSETS = {
 	STAT_BG_3: "https://www.figma.com/api/mcp/asset/595eabec-6eb1-4770-9dff-0282574245b8",
 };
 
-export function Hero() {
+interface HeroProps {
+	bannerText?: string;
+	bannerLink?: { text: string; href: string };
+	bannerExpiry?: string | number;
+}
+
+export function Hero({
+	bannerText = "yUSF is live on Status",
+	bannerLink = { text: "Get FIRM", href: "#" },
+	bannerExpiry,
+}: HeroProps) {
 	const shouldReduceMotion = useReducedMotion();
 
 	return (
 		<div className="relative flex min-h-screen flex-col bg-[#151821] text-white overflow-hidden isolate">
-			{/* Top Banner */}
-			<div className="relative z-50 bg-brand-yellow flex w-full items-center justify-center p-0 text-center text-[16px] font-semibold tracking-tight text-[#2c2416] leading-[1.05]">
-				<p className="py-2.5 pl-4">yUSF is live on Status</p>
-				<a
-					href="#"
-					aria-label="Get FIRM on Status"
-					className="py-2.5 px-4 border-b-2 border-[#222734]/30 hover:border-[#222734] transition-all duration-200 flex items-center h-full min-h-[44px]"
-				>
-					Get FIRM
-				</a>
-			</div>
+			<Banner text={bannerText} link={bannerLink} expiryTime={bannerExpiry} />
 
-			{/* Background Decorative Assets (Relative to the whole viewport to prevent clipping) */}
 			<div className="absolute inset-0 pointer-events-none z-0">
 				<motion.div
 					initial={{ y: shouldReduceMotion ? 0 : -100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 2, ease: cubicBezier(0, 0.55, 0.45, 1) }}
-					className="flex justify-center xl:-mt-8 will-change-transform"
+					className="flex justify-center xl:-mt-24 will-change-transform"
 				>
-					<img
-						src={ASSETS.HERO_DECOR}
-						alt=""
-						aria-hidden="true"
-						className="h-[140px] xl:h-[420px] aspect-1390/435 max-w-[1600px] opacity-[0.15] mix-blend-screen"
+					<Logotype
+						fill="#2156FC"
+						className="h-[160px] xl:h-[520px] aspect-auto opacity-[0.25] pointer-events-none select-none"
 					/>
 				</motion.div>
 			</div>
@@ -53,7 +51,7 @@ export function Hero() {
 					<div className="mt-18 xl:mt-2 flex flex-col-reverse items-start gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-32">
 						{/* Left Content */}
 						<div className="flex max-w-[531px] flex-col gap-8">
-							<div className="flex flex-col gap-4">
+							<div className="flex flex-col gap-3">
 								<motion.h1
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
 									animate={{ y: 0, opacity: 1 }}
@@ -66,7 +64,7 @@ export function Hero() {
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
 									animate={{ y: 0, opacity: 1 }}
 									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-									className="font-sans text-lg xl:text-xl font-normal leading-relaxed xl:tracking-[-0.75px] text-[#e1e3e7] md:text-[24px]"
+									className="font-sans text-lg xl:text-xl font-normal leading-tight tracking-normal xl:tracking-[-0.75px] text-[#e1e3e7] md:text-[24px]"
 								>
 									Native stablecoin where you earn by using apps, and yield comes from{" "}
 									<span className="font-semibold text-white">real borrowing</span>,{" "}
@@ -74,25 +72,21 @@ export function Hero() {
 								</motion.p>
 							</div>
 
-							<motion.div
+							<motion.button
 								initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
 								animate={{ y: 0, opacity: 1 }}
 								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-								whileHover={shouldReduceMotion ? {} : { y: -2 }}
-								whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
+								whileHover={{ y: -4, transition: { duration: 0.2, delay: 0 } }}
+								whileTap={{ scale: 0.96, y: 0, transition: { duration: 0.1, delay: 0 } }}
+								style={{ touchAction: "manipulation" }}
+								className="group bg-[#1447e6] border-2 border-white/20 hover:border-white/40 text-lg font-semibold px-4 py-3 h-auto shadow-[0_0_20px_rgba(20,71,230,0.3)] hover:shadow-[0_0_25px_rgba(20,71,230,0.5)] flex items-center gap-3 w-fit tracking-[-0.01em] cursor-pointer"
 							>
-								<Button size="lg" className="group bg-[#1447e6] border-2 border-white/20 hover:border-white/40 text-xl font-semibold px-8 py-5 h-auto rounded-[2px] shadow-[0_0_20px_rgba(20,71,230,0.3)] hover:shadow-[0_0_25px_rgba(20,71,230,0.5)] flex items-center gap-[12px] w-fit tracking-[-0.01em] transition-all duration-300">
-									Make your bags FIRM
-
-									<div className="relative" aria-hidden="true">
-										<svg xmlns="http://www.w3.org/2000/svg" className="size-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" viewBox="0 0 33 18" fill="none">
-											<path d="M22.2445 0L24.4676 6.77665L32.0693 8.99975L24.4676 11.2229L22.2445 17.9995L20.0214 11.2229L0 8.99975L20.0214 6.77665L22.2445 0Z" fill="#EEECE7" />
-										</svg>
-										{/* Subtle glow behind the star */}
-										<div className="absolute inset-0 bg-white/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-									</div>
-								</Button>
-							</motion.div>
+								Make your bags FIRM
+								<div className="relative" aria-hidden="true">
+									<BrandStar className="size-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
+									<div className="absolute inset-0 bg-white/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+								</div>
+							</motion.button>
 
 							<motion.div
 								initial={{ y: shouldReduceMotion ? 0 : 10, opacity: 0 }}
@@ -109,7 +103,7 @@ export function Hero() {
 									<motion.a
 										key={social.id}
 										href="#"
-										whileHover={{ y: -2, backgroundColor: "rgba(116, 134, 180, 0.1)", fill: "white" }}
+										whileHover={{ y: -2, backgroundColor: "rgba(116, 134, 180, 0.1)" }}
 										whileTap={{ scale: 0.95 }}
 										className="p-3 rounded-[4px] transition-colors flex items-center justify-center min-w-[48px] min-h-[48px] group/social"
 									>
