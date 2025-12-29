@@ -48,7 +48,7 @@ export function Banner({ text, link, expiryTime }: BannerProps) {
 	if (!isVisible) return null;
 
 	return (
-		<div className="relative z-50 bg-brand-yellow flex w-full items-center justify-center p-0 text-center text-[16px] font-semibold tracking-tight text-[#2c2416] leading-[1.05]">
+		<div className="relative z-50 bg-brand-yellow flex w-full items-center justify-center p-0 text-center text-xs md:text-sm font-semibold tracking-tight text-[#2c2416] leading-[1.05]">
 			<p className="py-2.5 pl-4">{text}</p>
 			{link && (
 				<a

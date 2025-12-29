@@ -51,11 +51,11 @@ export function Features() {
 									<feature.icon className="w-auto h-auto max-w-[120px]" />
 								</div>
 
-								<h3 className="text-xl lg:text-2xl font-heading font-bold text-white mb-6 tracking-tight">
+								<h3 className="text-xl xl:text-sxl font-heading font-semibold tracking-wide text-white mb-6 tracking-tight">
 									{feature.title}
 								</h3>
 
-								<p className="text-[#a9b1c8] text-base md:text-lg leading-relaxed max-w-[280px]">
+								<p className="text-[#a9b1c8] text-base lg:text-lg leading-relaxed max-w-[280px]">
 									{feature.description}
 								</p>
 							</motion.div>
