@@ -94,9 +94,9 @@ export function StatusFirmSection({ className }: { className?: string }) {
 					{/* Visual cluster */}
 					<div className="relative isolate overflow-hidden rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_40%_50%,rgba(113,64,253,0.18),transparent_55%),radial-gradient(circle_at_70%_40%,rgba(11,93,255,0.2),transparent_60%),linear-gradient(180deg,rgba(12,17,26,0.92),rgba(12,17,26,0.72))] p-10 shadow-[0_30px_120px_-50px_rgba(0,0,0,0.85)]">
 						<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.04),transparent_42%)]" />
-						<div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center gap-0">
+						<div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center gap-0 sm:gap-2">
 							<motion.div
-								className="relative h-[240px] w-[240px] sm:h-[270px] sm:w-[270px] translate-x-4 sm:translate-x-6"
+								className="relative aspect-square w-[42vw] min-w-[140px] max-w-[220px] sm:w-[220px] sm:max-w-[240px] md:w-[260px] md:max-w-[270px] translate-x-2 sm:translate-x-4 md:translate-x-6"
 								animate={{ scale: [1, 1.03, 1], opacity: [0.94, 1, 0.94] }}
 								transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
 							>
@@ -113,7 +113,7 @@ export function StatusFirmSection({ className }: { className?: string }) {
 							</motion.div>
 
 							<motion.div
-								className="relative h-[240px] w-[240px] sm:h-[270px] sm:w-[270px] -translate-x-4 sm:-translate-x-6"
+								className="relative aspect-square w-[42vw] min-w-[140px] max-w-[220px] sm:w-[220px] sm:max-w-[240px] md:w-[260px] md:max-w-[270px] -translate-x-2 sm:-translate-x-4 md:-translate-x-6"
 								animate={{ scale: [1, 1.03, 1], opacity: [0.94, 1, 0.94] }}
 								transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
 							>
