@@ -144,7 +144,7 @@ export function FirmSystem() {
 								ry={ry}
 								fill="none"
 								stroke="white"
-								strokeOpacity="0.1"
+								strokeOpacity="0.4"
 								strokeWidth="1.5"
 								strokeDasharray="4 8"
 							/>
